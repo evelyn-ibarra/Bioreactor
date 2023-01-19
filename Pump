@@ -1,0 +1,30 @@
+
+#define PWM_PERCENTAGE (70) //input what percent of its max you want it to run
+
+//27mL for the bioreactor to work
+
+//definintion of function
+int PercentToPWM(int percent){
+  double decimal =percent/100.0; //Converting percent to decimal
+  return decimal*255; //multiplying decimal to pump's max input value
+}
+
+int modpin = 9; // connected to pin 3 because of PWM capabilities ~
+
+void setup() {
+  pinMode(modpin, OUTPUT); // location of pin 
+}
+
+
+void loop() {
+  // put your main code here, to run repeatedly: can write feedback loop here
+  
+ 
+  analogWrite(modpin, PercentToPWM(PWM_PERCENTAGE)); // pulse width modulation command (location,modulation num)
+  delay(5000);  // On for 05.000 seconds
+  analogWrite(modpin, PercentToPWM(0));// at 0 percent / off
+  delay(60000); // off for 120.000 seconds 600000 is 10 min
+  // arduino is in milliseconds therefore
+  //double 60000*minutes = milliseconds
+ // milliseconds
+}
